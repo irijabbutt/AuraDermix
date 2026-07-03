@@ -2,7 +2,7 @@
 
 A web app that classifies skin conditions from a photo — the browser-based counterpart to my Flutter FYP, **Skin Health Analyzer**.
 
-**Live app:** https://irijabbutt.github.io/auradermix.github.io/
+**Live app:** https://irijabbutt.github.io/AuraDermix/
 
 ## Overview
 
