@@ -5,19 +5,30 @@ import { getFirestore } from 'firebase/firestore';
 // __FIREBASE_APPLET_CONFIG__ is globally injected at build-time from firebase-applet-config.json
 const config = typeof __FIREBASE_APPLET_CONFIG__ !== 'undefined' ? __FIREBASE_APPLET_CONFIG__ : {} as any;
 
+// Use fallback placeholder values to prevent startup crashes if configuration is absent
+const isConfigured = !!(import.meta.env.VITE_FIREBASE_API_KEY || config.apiKey);
+
+if (!isConfigured) {
+  console.warn(
+    "Firebase configuration is missing. The application will run in local-only offline mode with dummy services. " +
+    "To enable secure persistent Cloud Sync, configure your Firebase environment variables or provide firebase-applet-config.json."
+  );
+}
+
 const firebaseConfig = {
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || config.projectId,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || config.appId,
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || config.apiKey,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || config.authDomain || `${import.meta.env.VITE_FIREBASE_PROJECT_ID || config.projectId || ""}.firebaseapp.com`,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || config.storageBucket || `${import.meta.env.VITE_FIREBASE_PROJECT_ID || config.projectId || ""}.firebasestorage.app`,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || config.messagingSenderId,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || config.projectId || "aura-dermix-mock-project",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || config.appId || "1:1234567890:web:abcdef123456",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || config.apiKey || "mock-api-key-please-configure-in-settings",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || config.authDomain || `${import.meta.env.VITE_FIREBASE_PROJECT_ID || config.projectId || "aura-dermix-mock-project"}.firebaseapp.com`,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || config.storageBucket || `${import.meta.env.VITE_FIREBASE_PROJECT_ID || config.projectId || "aura-dermix-mock-project"}.firebasestorage.app`,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || config.messagingSenderId || "1234567890",
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || config.measurementId || ""
 };
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app, import.meta.env.VITE_FIREBASE_DATABASE_ID || config.firestoreDatabaseId || "ai-studio-auradermix-a3715676-a5df-4080-8969-53498786b7bb");
+export const isFirebaseActive = isConfigured;
 
 export enum OperationType {
   CREATE = 'create',
