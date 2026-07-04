@@ -5,8 +5,8 @@ import { getFirestore } from 'firebase/firestore';
 // __FIREBASE_APPLET_CONFIG__ is globally injected at build-time from firebase-applet-config.json
 const config = typeof __FIREBASE_APPLET_CONFIG__ !== 'undefined' ? __FIREBASE_APPLET_CONFIG__ : {} as any;
 
-// Use the actual AI Studio sandbox database configuration as default fallback
-const isConfigured = !!(import.meta.env.VITE_FIREBASE_API_KEY || config.apiKey || "AIzaSyCi9XfbvTWiTm9H0iCdeQyw8-YKjfgOzY4");
+// Use fallback placeholder values to prevent startup crashes if configuration is absent
+const isConfigured = !!(import.meta.env.VITE_FIREBASE_API_KEY || config.apiKey);
 
 if (!isConfigured) {
   console.warn(
@@ -16,18 +16,18 @@ if (!isConfigured) {
 }
 
 const firebaseConfig = {
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || config.projectId || "composed-amulet-474111-t4",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || config.appId || "1:166946553437:web:4a89344d27b5abbc9297b4",
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || config.apiKey || "AIzaSyCi9XfbvTWiTm9H0iCdeQyw8-YKjfgOzY4",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || config.authDomain || "composed-amulet-474111-t4.firebaseapp.com",
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || config.storageBucket || "composed-amulet-474111-t4.firebasestorage.app",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || config.messagingSenderId || "166946553437",
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || config.projectId || "",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || config.appId || "",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || config.apiKey || "",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || config.authDomain || "",
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || config.storageBucket || "",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || config.messagingSenderId || "",
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || config.measurementId || ""
 };
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-export const db = getFirestore(app, import.meta.env.VITE_FIREBASE_DATABASE_ID || config.firestoreDatabaseId || "ai-studio-auradermix-a3715676-a5df-4080-8969-53498786b7bb");
+export const db = getFirestore(app, import.meta.env.VITE_FIREBASE_DATABASE_ID || config.firestoreDatabaseId);
 export const isFirebaseActive = isConfigured;
 
 export enum OperationType {
