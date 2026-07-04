@@ -5,7 +5,7 @@ import {
   CreditCard, ShieldAlert, BadgeCheck, Camera, CheckCircle2 
 } from "lucide-react";
 import { ScanReport, UserProfile } from "../types";
-import { auth, db, handleFirestoreError, OperationType } from "../lib/firebase";
+import { auth, db, handleFirestoreError, OperationType, isFirebaseActive } from "../lib/firebase";
 import { 
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword, 
@@ -357,6 +357,26 @@ export default function FirebaseSync({
               </div>
             </div>
           </div>
+
+          {!isFirebaseActive && (
+            <div className="bg-amber-50 rounded-2xl p-5 border border-amber-200/60 text-amber-900 flex items-start gap-3.5 shadow-sm">
+              <AlertCircle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+              <div className="text-xs sm:text-sm space-y-1">
+                <p className="font-bold text-amber-950">Local-Only / Offline Storage Mode Active</p>
+                <p className="text-amber-900/80">
+                  No active Firebase configuration was detected in this environment. All of your personal profiles, skincare routines, and on-device scan history are running and saved fully securely inside your browser's local sandbox storage (<code>localStorage</code>).
+                </p>
+                <p className="font-semibold text-amber-950 mt-2">
+                  To activate real-time Cloud Synchronization in your deployed GitHub Pages build:
+                </p>
+                <ul className="list-disc pl-5 mt-1 text-amber-900/80 space-y-1">
+                  <li>Navigate to your GitHub Repository Settings → Secrets and variables → Actions.</li>
+                  <li>Add your Firebase variables (e.g., <code>VITE_FIREBASE_API_KEY</code>, <code>VITE_FIREBASE_PROJECT_ID</code>, etc.) as **Repository Secrets**.</li>
+                  <li>Re-run the deployment workflow to embed the variables at compilation time.</li>
+                </ul>
+              </div>
+            </div>
+          )}
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
             {/* Left Side: Setup Credentials & Auth */}
