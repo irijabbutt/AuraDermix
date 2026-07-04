@@ -2,19 +2,21 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
+import appletConfig from '../../firebase-applet-config.json';
+
 const firebaseConfig = {
-  projectId: "composed-amulet-474111-t4",
-  appId: "1:166946553437:web:4a89344d27b5abbc9297b4",
-  apiKey: "AIzaSyCi9XfbvTWiTm9H0iCdeQyw8-YKjfgOzY4",
-  authDomain: "composed-amulet-474111-t4.firebaseapp.com",
-  storageBucket: "composed-amulet-474111-t4.firebasestorage.app",
-  messagingSenderId: "166946553437",
-  measurementId: ""
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || appletConfig.projectId,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || appletConfig.appId,
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || appletConfig.apiKey,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || appletConfig.authDomain || `${import.meta.env.VITE_FIREBASE_PROJECT_ID || appletConfig.projectId}.firebaseapp.com`,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || appletConfig.storageBucket || `${import.meta.env.VITE_FIREBASE_PROJECT_ID || appletConfig.projectId}.firebasestorage.app`,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || appletConfig.messagingSenderId,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || appletConfig.measurementId || ""
 };
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-export const db = getFirestore(app, "ai-studio-auradermix-a3715676-a5df-4080-8969-53498786b7bb");
+export const db = getFirestore(app, import.meta.env.VITE_FIREBASE_DATABASE_ID || appletConfig.firestoreDatabaseId);
 
 export enum OperationType {
   CREATE = 'create',
