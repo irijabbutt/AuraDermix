@@ -1,0 +1,6 @@
+{
+  "name": "Aura Dermix",
+  "description": "Personalized skin health analyzer featuring on-device model simulation, intelligent Gemini recommendations, user profile customization, and long-term progress tracking.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
