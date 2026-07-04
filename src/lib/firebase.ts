@@ -5,8 +5,8 @@ import { getFirestore } from 'firebase/firestore';
 // __FIREBASE_APPLET_CONFIG__ is globally injected at build-time from firebase-applet-config.json
 const config = typeof __FIREBASE_APPLET_CONFIG__ !== 'undefined' ? __FIREBASE_APPLET_CONFIG__ : {} as any;
 
-// Use fallback placeholder values to prevent startup crashes if configuration is absent
-const isConfigured = !!(import.meta.env.VITE_FIREBASE_API_KEY || config.apiKey);
+// Use the actual AI Studio sandbox database configuration as default fallback
+const isConfigured = !!(import.meta.env.VITE_FIREBASE_API_KEY || config.apiKey || "AIzaSyCi9XfbvTWiTm9H0iCdeQyw8-YKjfgOzY4");
 
 if (!isConfigured) {
   console.warn(
@@ -16,12 +16,12 @@ if (!isConfigured) {
 }
 
 const firebaseConfig = {
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || config.projectId || "aura-dermix-mock-project",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || config.appId || "1:1234567890:web:abcdef123456",
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || config.apiKey || "mock-api-key-please-configure-in-settings",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || config.authDomain || `${import.meta.env.VITE_FIREBASE_PROJECT_ID || config.projectId || "aura-dermix-mock-project"}.firebaseapp.com`,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || config.storageBucket || `${import.meta.env.VITE_FIREBASE_PROJECT_ID || config.projectId || "aura-dermix-mock-project"}.firebasestorage.app`,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || config.messagingSenderId || "1234567890",
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || config.projectId || "composed-amulet-474111-t4",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || config.appId || "1:166946553437:web:4a89344d27b5abbc9297b4",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || config.apiKey || "AIzaSyCi9XfbvTWiTm9H0iCdeQyw8-YKjfgOzY4",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || config.authDomain || "composed-amulet-474111-t4.firebaseapp.com",
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || config.storageBucket || "composed-amulet-474111-t4.firebasestorage.app",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || config.messagingSenderId || "166946553437",
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || config.measurementId || ""
 };
 
