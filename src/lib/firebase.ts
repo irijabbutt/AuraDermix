@@ -3,12 +3,12 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  projectId: "composed-amulet-474111-t4",
-  appId: "1:166946553437:web:4a89344d27b5abbc9297b4",
-  apiKey: "AIzaSyCi9XfbvTWiTm9H0iCdeQyw8-YKjfgOzY4",
-  authDomain: "composed-amulet-474111-t4.firebaseapp.com",
-  storageBucket: "composed-amulet-474111-t4.firebasestorage.app",
-  messagingSenderId: "166946553437",
+  projectId: "VITE_FIREBASE_PROJECT_ID",
+  appId: "VITE_FIREBASE_APP_ID",
+  apiKey: "VITE_FIREBASE_API_KEY",
+  authDomain: "VITE_FIREBASE_AUTH_DOMAIN",
+  storageBucket: "VITE_FIREBASE_STORAGE_BUCKET",
+  messagingSenderId: "VITE_FIREBASE_MESSAGING_SENDER_ID",
   measurementId: ""
 };
 
