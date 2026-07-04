@@ -18,7 +18,7 @@ if (!isConfigured) {
 const firebaseConfig = {
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || config.projectId || "aura-dermix-mock-project",
   appId: import.meta.env.VITE_FIREBASE_APP_ID || config.appId || "1:1234567890:web:abcdef123456",
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || config.apiKey || "mock-api-key-please-configure-in-settings",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || config.apiKey || "AIzaSyCi9XfbvTWiTm9H0iCdeQyw8-YKjfgOzY4",
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || config.authDomain || `${import.meta.env.VITE_FIREBASE_PROJECT_ID || config.projectId || "aura-dermix-mock-project"}.firebaseapp.com`,
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || config.storageBucket || `${import.meta.env.VITE_FIREBASE_PROJECT_ID || config.projectId || "aura-dermix-mock-project"}.firebasestorage.app`,
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || config.messagingSenderId || "1234567890",
