@@ -114,6 +114,16 @@ export default function FirebaseSync({
     } catch (err: any) {
       if (err.code === "auth/operation-not-allowed") {
         setErrorDetails("Email/Password Auth is not enabled in Firebase Console. Please enable it under Auth -> Sign-in providers.");
+      } else if (err.code === "auth/unauthorized-domain" || err.message?.includes("unauthorized-domain")) {
+        const hostname = window.location.hostname;
+        setErrorDetails(
+          `Unauthorized Domain: "${hostname}" is not authorized in your Firebase Project.\n\n` +
+          `To fix this:\n` +
+          `1. Open Firebase Console (console.firebase.google.com)\n` +
+          `2. Go to Authentication > Settings > Authorized domains\n` +
+          `3. Click "Add domain" and enter exactly: ${hostname}\n` +
+          `4. Refresh this page and try again!`
+        );
       } else {
         setErrorDetails(err.message || "Authentication process failed.");
       }
@@ -490,7 +500,7 @@ export default function FirebaseSync({
                   <AlertCircle className="w-5 h-5 shrink-0" />
                   <div>
                     <p className="font-bold">{errorDetails ? "Vault Action Failed" : "Vault Activity Log"}</p>
-                    <p className="mt-1 text-brand-charcoal/80">{errorDetails || authSuccessMsg || syncStatus}</p>
+                    <p className="mt-1 text-brand-charcoal/80 whitespace-pre-line">{errorDetails || authSuccessMsg || syncStatus}</p>
                   </div>
                 </div>
               )}

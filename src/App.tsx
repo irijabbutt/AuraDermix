@@ -300,6 +300,16 @@ export default function App() {
       const code = error.code;
       if (code === "auth/operation-not-allowed") {
         setAuthError("Email/Password Auth is not enabled in Firebase Console. Please enable it in Firebase -> Authentication -> Sign-in method.");
+      } else if (code === "auth/unauthorized-domain" || error.message?.includes("unauthorized-domain")) {
+        const hostname = window.location.hostname;
+        setAuthError(
+          `Unauthorized Domain: "${hostname}" is not authorized in your Firebase Project.\n\n` +
+          `To fix this:\n` +
+          `1. Open Firebase Console (console.firebase.google.com)\n` +
+          `2. Go to Authentication > Settings > Authorized domains\n` +
+          `3. Click "Add domain" and enter exactly: ${hostname}\n` +
+          `4. Refresh this page and try again!`
+        );
       } else if (code === "auth/invalid-credential" || code === "auth/invalid-login-credentials") {
         setAuthError("Incorrect email or password, or this user does not exist. If you don't have an account, please choose the 'Sign Up' tab above.");
       } else if (code === "auth/user-not-found") {
@@ -336,7 +346,17 @@ export default function App() {
       }
     } catch (error: any) {
       const code = error.code;
-      if (code === "auth/popup-closed-by-user") {
+      if (code === "auth/unauthorized-domain" || error.message?.includes("unauthorized-domain")) {
+        const hostname = window.location.hostname;
+        setAuthError(
+          `Unauthorized Domain: "${hostname}" is not authorized in your Firebase Project.\n\n` +
+          `To fix this:\n` +
+          `1. Open Firebase Console (console.firebase.google.com)\n` +
+          `2. Go to Authentication > Settings > Authorized domains\n` +
+          `3. Click "Add domain" and enter exactly: ${hostname}\n` +
+          `4. Refresh this page and try again!`
+        );
+      } else if (code === "auth/popup-closed-by-user") {
         setAuthError("The sign-in popup was closed before completion. Please try again.");
       } else if (code === "auth/popup-blocked") {
         setAuthError("The browser blocked the sign-in popup. Please enable popups for this site or use the email form.");
@@ -508,7 +528,7 @@ export default function App() {
                 </div>
 
                 {authError && (
-                  <div className="p-3 bg-brand-orange/10 border border-brand-orange/30 rounded-xl text-xs text-brand-orange">
+                  <div className="p-4 bg-brand-orange/10 border border-brand-orange/30 rounded-xl text-xs text-brand-orange whitespace-pre-line leading-relaxed">
                     {authError}
                   </div>
                 )}
